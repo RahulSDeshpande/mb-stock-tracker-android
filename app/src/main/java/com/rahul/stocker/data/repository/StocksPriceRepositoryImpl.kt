@@ -47,7 +47,7 @@ class StocksPriceRepositoryImpl
 
         private var senderJob: Job? = null
 
-        private val refreshIntervalSeconds = MutableStateFlow(1)
+        private val refreshInterval = MutableStateFlow(1)
 
         init {
             coroutineScope.launch {
@@ -99,7 +99,7 @@ class StocksPriceRepositoryImpl
                             stockPriceService.sendEvent(event = payload)
                         }
 
-                        val seconds = refreshIntervalSeconds.value.coerceAtLeast(1)
+                        val seconds = refreshInterval.value.coerceAtLeast(1)
 
                         delay(seconds * PRICE_REFRESH_INTERVAL)
                     }
@@ -118,7 +118,7 @@ class StocksPriceRepositoryImpl
         }
 
         override fun setRefreshInterval(seconds: Int) {
-            refreshIntervalSeconds.value = seconds.coerceAtLeast(1)
+            refreshInterval.value = seconds.coerceAtLeast(1)
         }
 
         // TODO | MOVE TEMP HARD CODED VALUES TO Ext.kt
