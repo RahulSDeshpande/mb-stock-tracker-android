@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,11 +19,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
 import com.rahul.stocker.domain.model.StockModel
-import com.rahul.stocker.ext.AppColors
 import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL
+import com.rahul.stocker.ext.theme.AppColors
 import kotlinx.coroutines.delay
 
 @Composable
@@ -61,6 +63,7 @@ fun StockRow(stock: StockModel) {
         Text(
             modifier = Modifier.weight(1f),
             text = stock.symbol,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
         )
 
         val priceChangeArrow =
@@ -77,8 +80,13 @@ fun StockRow(stock: StockModel) {
                 else -> AppColors.priceStillArrowColor
             }
         Text(
-            text = String.format(stringResource(id = R.string.price_format), stock.price),
+            text =
+                String.format(
+                    stringResource(id = R.string.price_format),
+                    stock.price,
+                ),
             modifier = Modifier.widthIn(min = 40.dp),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
         )
 
         Spacer(modifier = Modifier.width(8.dp))
@@ -86,6 +94,7 @@ fun StockRow(stock: StockModel) {
         Text(
             text = priceChangeArrow,
             color = priceChangeArrowCoolor,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
         )
     }
 }

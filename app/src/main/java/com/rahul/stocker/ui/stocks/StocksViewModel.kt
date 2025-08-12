@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahul.stocker.domain.model.StockModel
 import com.rahul.stocker.domain.repository.StocksRepository
+import com.rahul.stocker.ext.EnumAppTheme
+import com.rahul.stocker.ext.EnumBottomTab
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,21 +20,33 @@ class StocksViewModel
         private val repository: StocksRepository,
     ) : ViewModel() {
         private val _isConnected = MutableStateFlow(false)
+        private val _refreshInterval = MutableStateFlow(2)
+        private val _appTheme = MutableStateFlow(EnumAppTheme.LIGHT)
+        private val _selectedTab = MutableStateFlow(EnumBottomTab.STOCKS)
 
         val viewStateEvent =
             combine(
                 repository.isConnected,
                 _isConnected,
                 repository.stocks,
+                _refreshInterval,
+                _appTheme,
+                _selectedTab,
             ) { values: Array<Any?> ->
                 val connected = values[0] as Boolean
                 val running = values[1] as Boolean
                 val stocks = values[2] as List<StockModel>
+                val interval = values[3] as Int
+                val theme = values[4] as EnumAppTheme
+                val tab = values[5] as EnumBottomTab
 
                 ViewState(
                     isConnected = connected,
                     isRunning = running,
                     stocks = stocks,
+                    refreshInterval = interval,
+                    appTheme = theme,
+                    selectedTab = tab,
                 )
             }.stateIn(
                 scope = viewModelScope,
@@ -56,7 +70,21 @@ class StocksViewModel
         }
 
         private fun stop() {
-        repository.stop()
+            repository.stop()
+        }
+
+        fun setRefreshInterval(seconds: Int) {
+            val clamped = seconds.coerceAtLeast(1)
+            _refreshInterval.value = clamped
+            repository.setRefreshInterval(clamped)
+        }
+
+        fun setAppTheme(theme: EnumAppTheme) {
+            _appTheme.value = theme
+        }
+
+        fun selectTab(tab: EnumBottomTab) {
+            _selectedTab.value = tab
     }
 
         override fun onCleared() {

@@ -3,6 +3,10 @@
 
     <string name="app_name">Stocker</string>
 
+    <!-- BOTTOM BAR -->
+    <string name="tab_stocks">Stocks</string>
+    <string name="tab_settings">Settings</string>
+
     <!-- STATUS INDICATORS -->
     <string name="status_connected_dot">🟢</string>
     <string name="status_disconnected_dot">🔴</string>
@@ -16,5 +20,16 @@
     <string name="price_down">↓</string>
     <string name="price_still">-</string>
     <string name="price_format">AED%.2f</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_refresh_interval">Refresh interval: %1$ds</string>
+
+    <string name="settings_theme_label">Theme</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+
+    <string name="settings_developer_info_title">Developer</string>
+    <string name="settings_developer_name">Rahul</string>
 
 </resources>
