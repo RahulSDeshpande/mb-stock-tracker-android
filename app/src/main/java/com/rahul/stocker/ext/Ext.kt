@@ -37,7 +37,7 @@ val mockedStocks =
     listOf(
         StockModel(
             symbol = "AAPL",
-            price = 200.00,
+            price = 202.00,
             previousPrice = 200.00,
             lastChangedTimestamp = null,
         ),
