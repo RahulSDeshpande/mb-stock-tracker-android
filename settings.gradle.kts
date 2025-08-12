@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MBStocker"
+rootProject.name = "Stocker"
 include(":app")
