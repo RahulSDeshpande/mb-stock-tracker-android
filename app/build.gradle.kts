@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rahul.mbstocker"
+    namespace = "com.rahul.stocker"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.rahul.mbstocker"
+        applicationId = "com.rahul.stocker"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
