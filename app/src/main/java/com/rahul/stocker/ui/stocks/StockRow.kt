@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
@@ -43,9 +41,9 @@ fun StockRow(stock: StockModel) {
 
     val priceChangeBgColor =
         when {
-            isUpdating && stock.isPriceUp -> AppColors.priceUpArrowColor
-            isUpdating && stock.isPriceDown -> AppColors.priceDownArrowColor
-            else -> AppColors.priceStillArrowColor
+            isUpdating && stock.isPriceUp -> AppColors.priceUpBgColor
+            isUpdating && stock.isPriceDown -> AppColors.priceDownBgColor
+            else -> AppColors.priceStillBgColor
         }
     val bg by animateColorAsState(targetValue = priceChangeBgColor)
 
@@ -74,9 +72,9 @@ fun StockRow(stock: StockModel) {
 
         val priceChangeArrowCoolor =
             when {
-                stock.isPriceUp -> Color(0xFF14AD4A)
-                stock.isPriceDown -> Color(0xFFD02D29)
-                else -> MaterialTheme.colorScheme.onSurfaceVariant
+                stock.isPriceUp -> AppColors.priceUpArrowColor
+                stock.isPriceDown -> AppColors.priceDownArrowColor
+                else -> AppColors.priceStillArrowColor
             }
         Text(
             text = String.format(stringResource(id = R.string.price_format), stock.price),

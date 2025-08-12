@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
+import com.rahul.stocker.ext.AppColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,6 +39,7 @@ fun StocksScreen(
                     ),
                 title = { Text(text = stringResource(id = R.string.app_name)) },
                 actions = {
+                    // TODO | TO PLAY AROUND TOGGLE BETWEEN TEXT AND SWITCH
                     // TextButton(onClick = onSwitched) {
                     //     Text(
                     //         if (viewState.isRunning) {
@@ -47,17 +49,18 @@ fun StocksScreen(
                     //         },
                     //     )
                     // }
+
                     Switch(
                         modifier = Modifier.padding(end = 8.dp),
                         checked = viewState.isRunning,
                         onCheckedChange = { onSwitched() },
                         colors =
                             SwitchDefaults.colors(
-                                checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
-                                checkedTrackColor = MaterialTheme.colorScheme.primary,
-                                uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                                uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                                checkedThumbColor = AppColors.priceUpBgColor,
+                                checkedTrackColor = AppColors.priceUpArrowColor,
                                 checkedBorderColor = Color.Transparent,
+                                uncheckedThumbColor = AppColors.priceDownBgColor,
+                                uncheckedTrackColor = AppColors.priceDownArrowColor,
                                 uncheckedBorderColor = Color.Transparent,
                             ),
                     )
