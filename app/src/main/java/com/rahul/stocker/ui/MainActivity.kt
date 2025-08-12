@@ -16,11 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rahul.stocker.R
 import com.rahul.stocker.ext.EnumAppTheme
 import com.rahul.stocker.ext.EnumBottomTab
+import com.rahul.stocker.ext.theme.AppTypography
 import com.rahul.stocker.ui.settings.SettingsScreen
 import com.rahul.stocker.ui.stocks.StocksScreen
 import com.rahul.stocker.ui.stocks.StocksViewModel
@@ -49,6 +51,7 @@ class MainActivity : ComponentActivity() {
                     } else {
                         lightColorScheme()
                     },
+                typography = AppTypography,
             ) {
                 Scaffold(
                     bottomBar = {
@@ -59,7 +62,12 @@ class MainActivity : ComponentActivity() {
                             NavigationBarItem(
                                 selected = viewState.selectedTab == EnumBottomTab.STOCKS,
                                 onClick = { vm.selectTab(EnumBottomTab.STOCKS) },
-                                label = { Text(text = getString(R.string.tab_stocks)) },
+                                label = {
+                                    Text(
+                                        text = getString(R.string.tab_stocks),
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
+                                    )
+                                },
                                 icon = {
                                     Image(
                                         painter = painterResource(R.drawable.ic_stocks),
@@ -70,7 +78,12 @@ class MainActivity : ComponentActivity() {
                             NavigationBarItem(
                                 selected = viewState.selectedTab == EnumBottomTab.SETTINGS,
                                 onClick = { vm.selectTab(EnumBottomTab.SETTINGS) },
-                                label = { Text(text = getString(R.string.tab_settings)) },
+                                label = {
+                                    Text(
+                                        text = getString(R.string.tab_settings),
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
+                                    )
+                                },
                                 icon = {
                                     Image(
                                         painter = painterResource(R.drawable.ic_settings),
