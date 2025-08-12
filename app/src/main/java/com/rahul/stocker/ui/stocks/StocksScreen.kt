@@ -8,13 +8,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
@@ -36,15 +38,29 @@ fun StocksScreen(
                     ),
                 title = { Text(text = stringResource(id = R.string.app_name)) },
                 actions = {
-                    TextButton(onClick = onSwitched) {
-                        Text(
-                            if (viewState.isRunning) {
-                                stringResource(id = R.string.action_stop)
-                            } else {
-                                stringResource(id = R.string.action_start)
-                            },
-                        )
-                    }
+                    // TextButton(onClick = onSwitched) {
+                    //     Text(
+                    //         if (viewState.isRunning) {
+                    //             stringResource(id = R.string.action_stop)
+                    //         } else {
+                    //             stringResource(id = R.string.action_start)
+                    //         },
+                    //     )
+                    // }
+                    Switch(
+                        modifier = Modifier.padding(end = 8.dp),
+                        checked = viewState.isRunning,
+                        onCheckedChange = { onSwitched() },
+                        colors =
+                            SwitchDefaults.colors(
+                                checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
+                                checkedTrackColor = MaterialTheme.colorScheme.primary,
+                                uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                                checkedBorderColor = Color.Transparent,
+                                uncheckedBorderColor = Color.Transparent,
+                            ),
+                    )
                 },
                 navigationIcon = {
                     val dot =
