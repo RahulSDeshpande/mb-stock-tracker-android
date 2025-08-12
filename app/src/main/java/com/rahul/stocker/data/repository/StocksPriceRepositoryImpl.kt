@@ -47,7 +47,7 @@ class StocksPriceRepositoryImpl
 
         private var senderJob: Job? = null
 
-        private val refreshIntervalSeconds = MutableStateFlow(2)
+        private val refreshIntervalSeconds = MutableStateFlow(1)
 
         init {
             coroutineScope.launch {
