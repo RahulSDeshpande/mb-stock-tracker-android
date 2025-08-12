@@ -18,9 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
-import com.rahul.stocker.ext.AppColors
+import com.rahul.stocker.ext.theme.AppColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +38,12 @@ fun StocksScreen(
                     TopAppBarDefaults.topAppBarColors(
                         containerColor = MaterialTheme.colorScheme.surface,
                     ),
-                title = { Text(text = stringResource(id = R.string.app_name)) },
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
+                    )
+                },
                 actions = {
                     // TODO | TO PLAY AROUND TOGGLE BETWEEN TEXT AND SWITCH
                     // TextButton(onClick = onSwitched) {

@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
 import com.rahul.stocker.ext.EnumAppTheme
@@ -40,7 +41,12 @@ fun SettingsScreen(
                     TopAppBarDefaults.topAppBarColors(
                         containerColor = MaterialTheme.colorScheme.surface,
                     ),
-                title = { Text(text = stringResource(id = R.string.settings_title)) },
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.settings_title),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                    )
+                },
             )
         },
     ) { padding ->
@@ -57,7 +63,7 @@ fun SettingsScreen(
                         id = R.string.settings_refresh_interval,
                         intervalSeconds,
                     ),
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
             )
 
             Slider(
@@ -75,7 +81,7 @@ fun SettingsScreen(
 
             Text(
                 text = stringResource(id = R.string.settings_theme_label),
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
             )
 
             Row(
@@ -96,6 +102,7 @@ fun SettingsScreen(
                     Text(
                         text = stringResource(id = R.string.settings_theme_light),
                         modifier = Modifier.padding(start = 4.dp),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
                     )
                 }
                 Row(
@@ -110,6 +117,7 @@ fun SettingsScreen(
                     Text(
                         text = stringResource(id = R.string.settings_theme_dark),
                         modifier = Modifier.padding(start = 4.dp),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
                     )
                 }
             }
@@ -121,12 +129,13 @@ fun SettingsScreen(
 
             Text(
                 text = stringResource(id = R.string.settings_developer_info_title),
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
             )
 
             Text(
                 modifier = Modifier.padding(top = 4.dp),
                 text = stringResource(id = R.string.settings_developer_name),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
             )
         }
     }
