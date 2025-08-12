@@ -19,7 +19,7 @@ class StocksViewModel
     ) : ViewModel() {
         private val _isConnected = MutableStateFlow(false)
 
-        val stateEvent =
+        val viewStateEvent =
             combine(
                 repository.isConnected,
                 _isConnected,

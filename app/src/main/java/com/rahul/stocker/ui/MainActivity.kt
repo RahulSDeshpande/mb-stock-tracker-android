@@ -22,8 +22,12 @@ class MainActivity : ComponentActivity() {
 
     private fun initViews() {
         setContent {
-            val viewState by vm.viewState.collectAsStateWithLifecycle()
-            StocksScreen(viewState = viewState)
+            val viewState by vm.viewStateEvent.collectAsStateWithLifecycle()
+
+            StocksScreen(
+                viewState = viewState,
+                onSwitched = { vm.switch() },
+            )
         }
     }
 }
