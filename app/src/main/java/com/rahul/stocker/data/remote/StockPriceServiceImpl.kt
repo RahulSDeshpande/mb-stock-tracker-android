@@ -109,7 +109,8 @@ class StockPriceServiceImpl(
     override fun disconnect() {
         webSocket?.close(
             // TODO | NEED DYNAMIC REFRESH INTERVAL
-            code = 100,
+            // APP CRASH - java.lang.IllegalArgumentException: Code must be in range [1000,5000): 100 :O :O :O
+            code = 1001,
             reason = "USER STOPPED/DISCONNECTED",
         )
         webSocket = null

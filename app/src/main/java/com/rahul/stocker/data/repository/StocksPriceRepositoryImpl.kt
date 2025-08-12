@@ -4,6 +4,7 @@ import com.rahul.stocker.data.remote.StockPriceService
 import com.rahul.stocker.domain.model.StockModel
 import com.rahul.stocker.domain.model.StockPriceEventModel
 import com.rahul.stocker.domain.repository.StocksRepository
+import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -84,6 +85,7 @@ class StocksPriceRepositoryImpl
                 coroutineScope.launch {
                     while (isActive) {
                         val now = System.currentTimeMillis()
+
                         symbols.forEach { symbol ->
                             val current = stocksMap[symbol] ?: return@forEach
                             val nextPrice = nextPriceFrom(current.price)
@@ -96,8 +98,10 @@ class StocksPriceRepositoryImpl
 
                             stockPriceService.sendEvent(event = payload)
                         }
+
                         val seconds = refreshIntervalSeconds.value.coerceAtLeast(1)
-                        delay(seconds * 1000L)
+
+                        delay(seconds * PRICE_REFRESH_INTERVAL)
                     }
                 }
         }
@@ -123,7 +127,7 @@ class StocksPriceRepositoryImpl
         // TODO | MOVE TEMP HARD CODED VALUES TO Ext.kt
         private fun nextPriceFrom(current: Double): Double {
             val delta = Random.Default.nextDouble(-3.0, 3.0)
-            val next = (current + Random.Default.nextDouble(-3.0, 3.0)).coerceAtLeast(0.0)
+            val next = (current + delta).coerceAtLeast(0.0)
             return String.format("%.2f", next).toDouble()
         }
     }

@@ -17,17 +17,16 @@ class StocksViewModel
     constructor(
         private val repository: StocksRepository,
     ) : ViewModel() {
-        private val _isRunning = MutableStateFlow(false)
+        private val _isConnected = MutableStateFlow(false)
 
-        val viewState =
+        val viewStateEvent =
             combine(
                 repository.isConnected,
-                _isRunning,
+                _isConnected,
                 repository.stocks,
             ) { values: Array<Any?> ->
                 val connected = values[0] as Boolean
                 val running = values[1] as Boolean
-
                 val stocks = values[2] as List<StockModel>
 
                 ViewState(
@@ -40,6 +39,25 @@ class StocksViewModel
                 started = SharingStarted.Eagerly,
                 initialValue = ViewState(),
             )
+
+        fun switch() {
+            val isConnectedNew = !_isConnected.value
+            _isConnected.value = isConnectedNew
+
+            if (isConnectedNew) {
+                start()
+            } else {
+                stop()
+            }
+        }
+
+        private fun start() {
+            repository.start()
+        }
+
+        private fun stop() {
+        repository.stop()
+    }
 
         override fun onCleared() {
             repository.close()
