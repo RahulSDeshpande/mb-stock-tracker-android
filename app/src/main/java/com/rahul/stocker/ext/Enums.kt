@@ -1,3 +1,5 @@
 package com.rahul.stocker.ext
 
-enum class AppTheme { LIGHT, DARK }
+enum class EnumAppTheme { LIGHT, DARK }
+
+enum class EnumBottomTab { STOCKS, SETTINGS }
