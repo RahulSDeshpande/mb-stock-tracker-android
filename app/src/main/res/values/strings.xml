@@ -3,6 +3,10 @@
 
     <string name="app_name">Stocker</string>
 
+    <!-- BOTTOM BAR -->
+    <string name="tab_stocks">Stocks</string>
+    <string name="tab_settings">Settings</string>
+
     <!-- STATUS INDICATORS -->
     <string name="status_connected_dot">🟢</string>
     <string name="status_disconnected_dot">🔴</string>
@@ -26,6 +30,6 @@
     <string name="settings_theme_dark">Dark</string>
 
     <string name="settings_developer_info_title">Developer</string>
-    <string name="settings_developer_name">Name: Rahul Deshpande</string>
+    <string name="settings_developer_name">Rahul</string>
 
 </resources>
