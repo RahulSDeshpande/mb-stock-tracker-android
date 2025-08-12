@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class BindModule {
     @Binds
     @Singleton
-    abstract fun bindRepository(impl: StockRepository): StockPriceRepositoryImpl
+    abstract fun bindRepository(impl: StockPriceRepositoryImpl): StockRepository
 }
