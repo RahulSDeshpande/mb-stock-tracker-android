@@ -56,8 +56,8 @@ class StocksViewModel
         }
 
         private fun stop() {
-        repository.stop()
-    }
+            repository.stop()
+        }
 
         override fun onCleared() {
             repository.close()

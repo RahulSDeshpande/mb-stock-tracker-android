@@ -56,11 +56,11 @@ fun StocksScreen(
                         onCheckedChange = { onSwitched() },
                         colors =
                             SwitchDefaults.colors(
-                                checkedThumbColor = AppColors.priceUpBgColor,
-                                checkedTrackColor = AppColors.priceUpArrowColor,
+                                checkedThumbColor = AppColors.priceUpArrowColor,
+                                checkedTrackColor = AppColors.priceUpBgColor,
                                 checkedBorderColor = Color.Transparent,
-                                uncheckedThumbColor = AppColors.priceDownBgColor,
-                                uncheckedTrackColor = AppColors.priceDownArrowColor,
+                                uncheckedThumbColor = AppColors.priceDownArrowColor,
+                                uncheckedTrackColor = AppColors.priceDownBgColor,
                                 uncheckedBorderColor = Color.Transparent,
                             ),
                     )

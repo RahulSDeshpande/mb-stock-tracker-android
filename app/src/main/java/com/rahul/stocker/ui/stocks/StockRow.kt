@@ -77,7 +77,11 @@ fun StockRow(stock: StockModel) {
                 else -> AppColors.priceStillArrowColor
             }
         Text(
-            text = String.format(stringResource(id = R.string.price_format), stock.price),
+            text =
+                String.format(
+                    stringResource(id = R.string.price_format),
+                    stock.price,
+                ),
             modifier = Modifier.widthIn(min = 40.dp),
         )
 
