@@ -1,7 +1,7 @@
 package com.rahul.stocker.di
 
-import com.rahul.stocker.data.repository.StockPriceRepositoryImpl
-import com.rahul.stocker.domain.repository.StockRepository
+import com.rahul.stocker.data.repository.StocksPriceRepositoryImpl
+import com.rahul.stocker.domain.repository.StocksRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class BindModule {
     @Binds
     @Singleton
-    abstract fun bindRepository(impl: StockPriceRepositoryImpl): StockRepository
+    abstract fun bindRepository(impl: StocksPriceRepositoryImpl): StocksRepository
 }

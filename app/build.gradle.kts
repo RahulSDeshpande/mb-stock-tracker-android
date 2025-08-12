@@ -18,6 +18,8 @@ android {
         versionName = "1.0"
 
         vectorDrawables { useSupportLibrary = true }
+
+        buildConfigField("String", "WS_URL", "\"wss://ws.postman-echo.com/raw\"")
     }
 
     buildTypes {
@@ -43,8 +45,10 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
+        // Compose compiler plugin is applied via org.jetbrains.kotlin.plugin.compose
     }
-    // Compose compiler plugin is applied via org.jetbrains.kotlin.plugin.compose
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -66,6 +70,7 @@ dependencies {
 
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.8.3")
     implementation("androidx.compose.material3:material3:1.3.2")
 
     implementation("com.google.android.material:material:1.12.0")
@@ -77,6 +82,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // Hilt DI
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation("com.google.dagger:hilt-android:2.57")
+    kapt("com.google.dagger:hilt-android-compiler:2.57")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.13.1")
 }
