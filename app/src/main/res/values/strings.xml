@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Stocker</string>
+
+    <!-- STATUS INDICATORS -->
+    <string name="status_connected_dot">🟢</string>
+    <string name="status_disconnected_dot">🔴</string>
+
+    <!-- ACTIONS -->
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
+
+    <!-- PRICE FORMATTING AND SYMBOLS -->
+    <string name="price_up">↑</string>
+    <string name="price_down">↓</string>
+    <string name="price_still">-</string>
+    <string name="price_format">AED%.2f</string>
+
 </resources>
