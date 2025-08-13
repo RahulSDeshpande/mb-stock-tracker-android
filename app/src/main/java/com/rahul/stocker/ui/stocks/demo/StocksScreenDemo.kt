@@ -47,7 +47,7 @@ private fun PreviewStocksScreenConnected() {
             viewState =
                 ViewState(
                     isConnected = true,
-                    isRunning = true,
+                    isUpdating = true,
                     stocks = mockedStocks.take(6),
                 ),
         )
@@ -65,7 +65,7 @@ private fun PreviewStockScreenDisconnected() {
             viewState =
                 ViewState(
                     isConnected = false,
-                    isRunning = false,
+                    isUpdating = false,
                     stocks = mockedStocks.asReversed().take(3),
                 ),
         )
