@@ -10,7 +10,7 @@ import io.mockk.verify
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -19,7 +19,7 @@ import org.junit.Test
 class StocksPriceRepositoryTest {
     @Test
     fun verifyStocksUpdateOnReceivingEcho() =
-        runBlocking {
+        runTest {
             val isConnected = MutableStateFlow(false)
             val receivingEvent = MutableSharedFlow<StockPriceEventModel>(replay = 1)
 
@@ -30,15 +30,15 @@ class StocksPriceRepositoryTest {
 
             val symbols = listOf("AAA", "BBB")
 
-            val repo =
+            val repository =
                 StocksPriceRepositoryImpl(
                     symbols = symbols,
                     stockPriceService = stockPriceService,
                 )
-            repo.setRefreshInterval(1)
+            repository.setRefreshInterval(1)
 
-            // Simulate connect and an incoming echoed price
-            isConnected.value = true
+            // Start repository with test scope and emit an incoming echoed price
+            repository.start(this)
 
             receivingEvent.tryEmit(
                 StockPriceEventModel(
@@ -50,7 +50,7 @@ class StocksPriceRepositoryTest {
 
             val stocks =
                 withTimeout(PRICE_REFRESH_INTERVAL_MILLIS) {
-                    repo.stocks.first { stocks ->
+                    repository.stocks.first { stocks ->
                         stocks.any { it.symbol == "AAA" && it.price == 123.45 }
                     }
                 }
@@ -61,8 +61,8 @@ class StocksPriceRepositoryTest {
             assertTrue(updated.previousPrice != null)
 
             // Repository may connect in start(); not strictly required here
-            verify(atLeast = 0) { stockPriceService.connect() }
+            verify(atLeast = 1) { stockPriceService.connect(any()) }
 
-            repo.stop()
+            repository.stop()
         }
 }

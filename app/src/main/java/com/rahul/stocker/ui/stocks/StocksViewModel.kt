@@ -6,6 +6,7 @@ import com.rahul.stocker.domain.model.StockModel
 import com.rahul.stocker.domain.repository.StocksRepository
 import com.rahul.stocker.ext.EnumAppTheme
 import com.rahul.stocker.ext.EnumBottomTab
+import com.rahul.stocker.ext.MIN_PRICE_REFRESH_INTERVAL_SECONDS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,7 +21,7 @@ class StocksViewModel
         private val repository: StocksRepository,
     ) : ViewModel() {
         private val _isConnected = MutableStateFlow(false)
-        private val _refreshInterval = MutableStateFlow(2)
+        private val _refreshInterval = MutableStateFlow(MIN_PRICE_REFRESH_INTERVAL_SECONDS)
         private val _appTheme = MutableStateFlow(EnumAppTheme.LIGHT)
         private val _selectedTab = MutableStateFlow(EnumBottomTab.STOCKS)
 
