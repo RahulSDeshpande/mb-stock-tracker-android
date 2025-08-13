@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface StockPriceService {
     val isConnected: StateFlow<Boolean>
 
-    fun connect(scope: CoroutineScope? = null)
+    fun connect(scope: CoroutineScope)
 
     fun disconnect()
 

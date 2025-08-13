@@ -2,6 +2,7 @@ package com.rahul.stocker.fake
 
 import com.rahul.stocker.data.remote.StockPriceService
 import com.rahul.stocker.domain.model.StockPriceEventModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -14,7 +15,7 @@ class FakeStockPriceService : StockPriceService {
             extraBufferCapacity = 16,
         )
 
-    override fun connect() {
+    override fun connect(scope: CoroutineScope) {
         isConnected.value = true
     }
 

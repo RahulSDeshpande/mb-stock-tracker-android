@@ -45,10 +45,8 @@ class StockPriceServiceImpl(
         )
     override val receivingEvent: SharedFlow<StockPriceEventModel> = _receivingEvent
 
-    override fun connect(scope: CoroutineScope?) {
-        if (scope != null) {
-            coroutineScope = scope
-        }
+    override fun connect(scope: CoroutineScope) {
+        coroutineScope = scope
 
         if (webSocket != null) {
             return
@@ -77,9 +75,7 @@ class StockPriceServiceImpl(
                             try {
                                 val model = gson.fromJson(text, StockPriceEventModel::class.java)
                                 if (model.symbol.isNotBlank() && !model.price.isNaN()) {
-                                    coroutineScope?.launch {
-                                        _receivingEvent.emit(model)
-                                    }
+                                    coroutineScope?.launch { _receivingEvent.emit(model) }
                                 }
                             } catch (jse: JsonSyntaxException) {
                                 print(jse.message)
