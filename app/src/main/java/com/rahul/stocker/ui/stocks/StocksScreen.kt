@@ -58,7 +58,7 @@ fun StocksScreen(
 
                     Switch(
                         modifier = Modifier.padding(end = 8.dp),
-                        checked = viewState.isRunning,
+                        checked = viewState.isUpdating,
                         onCheckedChange = { onSwitched() },
                         colors =
                             SwitchDefaults.colors(
