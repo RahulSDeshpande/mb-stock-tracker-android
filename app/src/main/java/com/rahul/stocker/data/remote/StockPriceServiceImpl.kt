@@ -43,7 +43,7 @@ class StockPriceServiceImpl(
 
     private val _receivingEvent =
         MutableSharedFlow<StockPriceEventModel>(
-            extraBufferCapacity = 8,
+            extraBufferCapacity = 64,
             onBufferOverflow = BufferOverflow.DROP_OLDEST,
         )
     override val receivingEvent: SharedFlow<StockPriceEventModel> = _receivingEvent

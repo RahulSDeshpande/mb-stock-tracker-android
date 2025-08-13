@@ -85,7 +85,7 @@ class StocksViewModel
 
         fun selectTab(tab: EnumBottomTab) {
             _selectedTab.value = tab
-    }
+        }
 
         override fun onCleared() {
             repository.close()
