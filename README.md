@@ -100,16 +100,16 @@ The app follows a straightforward, testable MVVM split with a light domain layer
 
 ## Screenshots / demos
 
-![Stocks screen](docs/images/Screenshot_20250813_121703.png)
-![Settings screen](docs/images/Screenshot_20250813_121718.png)
+![Stocks screen](docs/media/Screenshot_20250813_121703.png)
+![Settings screen](docs/media/Screenshot_20250813_121718.png)
 
 More screenshots:
 
-- ![Screenshot 1](docs/images/Screenshot_20250813_121737.png)
-- ![Screenshot 2](docs/images/Screenshot_20250813_121750.png)
-- ![Screenshot 3](docs/images/Screenshot_20250813_145634.png)
-- ![Screenshot 4](docs/images/Screenshot_20250813_145847.png)
+- ![Screenshot 1](docs/media/Screenshot_20250813_121737.png)
+- ![Screenshot 2](docs/media/Screenshot_20250813_121750.png)
+- ![Screenshot 3](docs/media/Screenshot_20250813_145634.png)
+- ![Screenshot 4](docs/media/Screenshot_20250813_145847.png)
 
 Demo video:
 
-<!-- linked in a follow-up commit -->
+- [`Stocker - demo video.webm`](docs/media/Stocker%20-%20demo%20video.webm)
