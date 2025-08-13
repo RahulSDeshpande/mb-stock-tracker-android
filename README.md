@@ -119,4 +119,5 @@ Demo video:
 
 - [`Stocker - demo video.webm`](docs/media/Stocker%20-%20demo%20video.webm)
 
-- [Uploading Stocker - demo video.webm…]()
+[Stocker - demo video.webm](https://github.com/user-attachments/assets/179c9da2-7afd-439b-9d9a-3f4a9786a88e)
+
