@@ -100,15 +100,20 @@ The app follows a straightforward, testable MVVM split with a light domain layer
 
 ## Screenshots / demos
 
-![Stocks screen](docs/media/Screenshot_20250813_121703.png)
-![Settings screen](docs/media/Screenshot_20250813_121718.png)
+<p align="center">
+  <img src="docs/media/Screenshot_20250813_121703.png" alt="Stocks screen" width="45%" />
+  <img src="docs/media/Screenshot_20250813_121718.png" alt="Settings screen" width="45%" />
+
+</p>
 
 More screenshots:
 
-- ![Screenshot 1](docs/media/Screenshot_20250813_121737.png)
-- ![Screenshot 2](docs/media/Screenshot_20250813_121750.png)
-- ![Screenshot 3](docs/media/Screenshot_20250813_145634.png)
-- ![Screenshot 4](docs/media/Screenshot_20250813_145847.png)
+<div align="center">
+  <img src="docs/media/Screenshot_20250813_121737.png" alt="Screenshot 1" width="24%" />
+  <img src="docs/media/Screenshot_20250813_121750.png" alt="Screenshot 2" width="24%" />
+  <img src="docs/media/Screenshot_20250813_145634.png" alt="Screenshot 3" width="24%" />
+  <img src="docs/media/Screenshot_20250813_145847.png" alt="Screenshot 4" width="24%" />
+</div>
 
 Demo video:
 
