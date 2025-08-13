@@ -22,13 +22,7 @@ import java.util.concurrent.TimeUnit
 class StockPriceServiceImpl(
     private val wsUrl: String = BuildConfig.WS_URL,
 ) : StockPriceService {
-    // TODO | MIGHT NEED SCOPE FROM THE ViewModel
-    // private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-
-    // TODO | REMOVE IF NOT NECESSARY
-    // private val ownScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-
-    private var externalScope: CoroutineScope? = null
+    private var coroutineScope: CoroutineScope? = null
 
     private val httpClient =
         OkHttpClient
@@ -53,7 +47,7 @@ class StockPriceServiceImpl(
 
     override fun connect(scope: CoroutineScope?) {
         if (scope != null) {
-            externalScope = scope
+            coroutineScope = scope
         }
 
         if (webSocket != null) {
@@ -83,7 +77,7 @@ class StockPriceServiceImpl(
                             try {
                                 val model = gson.fromJson(text, StockPriceEventModel::class.java)
                                 if (model.symbol.isNotBlank() && !model.price.isNaN()) {
-                                    externalScope?.launch {
+                                    coroutineScope?.launch {
                                         _receivingEvent.emit(model)
                                     }
                                 }
@@ -128,7 +122,6 @@ class StockPriceServiceImpl(
 
     override fun cancel() {
         disconnect()
-        externalScope?.cancel()
-        // ownScope.cancel()
+        coroutineScope?.cancel()
     }
 }

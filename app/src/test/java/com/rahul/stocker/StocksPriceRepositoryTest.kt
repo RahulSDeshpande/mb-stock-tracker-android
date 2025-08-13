@@ -3,7 +3,7 @@ package com.rahul.stocker
 import com.rahul.stocker.data.remote.StockPriceService
 import com.rahul.stocker.data.repository.StocksPriceRepositoryImpl
 import com.rahul.stocker.domain.model.StockPriceEventModel
-import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL
+import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL_MILLIS
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -49,7 +49,7 @@ class StocksPriceRepositoryTest {
             )
 
             val stocks =
-                withTimeout(PRICE_REFRESH_INTERVAL) {
+                withTimeout(PRICE_REFRESH_INTERVAL_MILLIS) {
                     repo.stocks.first { stocks ->
                         stocks.any { it.symbol == "AAA" && it.price == 123.45 }
                     }

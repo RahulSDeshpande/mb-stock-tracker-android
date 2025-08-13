@@ -4,11 +4,10 @@ import com.rahul.stocker.data.remote.StockPriceService
 import com.rahul.stocker.domain.model.StockModel
 import com.rahul.stocker.domain.model.StockPriceEventModel
 import com.rahul.stocker.domain.repository.StocksRepository
-import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL
+import com.rahul.stocker.ext.MIN_PRICE_REFRESH_INTERVAL_SECONDS
+import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL_MILLIS
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,9 +26,6 @@ class StocksPriceRepositoryImpl
         private val symbols: List<String>,
         private val stockPriceService: StockPriceService,
     ) : StocksRepository {
-        private val ownScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        private var externalScope: CoroutineScope? = null
-
         private val stocksMap: MutableMap<String, StockModel> =
             symbols
                 .associateWith { symbol ->
@@ -51,42 +47,49 @@ class StocksPriceRepositoryImpl
 
         private val refreshInterval = MutableStateFlow(1)
 
-        init {
-            // Default to internal scope until a ViewModel scope is provided via start()
-            ownScope.launch {
-                stockPriceService.receivingEvent.collect { event ->
-                    val symbol = event.symbol
-                    val newPrice = event.price
-                    val now = event.timestamp
-                    val current = stocksMap[symbol]
-
-                    if (symbol.isNotBlank() && !newPrice.isNaN() && current != null) {
-                        stocksMap[symbol] =
-                            current.copy(
-                                previousPrice = current.price,
-                                price = newPrice,
-                                lastChangedTimestamp = now,
-                            )
-                        _stocks.update {
-                            stocksMap.values.sortedByDescending {
-                                it.price
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         override fun start(scope: CoroutineScope) {
-            externalScope = scope
             stockPriceService.connect(scope = scope)
 
             if (senderJob?.isActive == true) {
                 return
             }
 
+            initReceivingEvents(scope = scope)
+
+            initSendEvents(scope = scope)
+        }
+
+        private fun initReceivingEvents(scope: CoroutineScope) {
+            if (collectJob?.isActive != true) {
+                collectJob =
+                    scope.launch {
+                        stockPriceService.receivingEvent.collect { event ->
+                            val symbol = event.symbol
+                            val newPrice = event.price
+                            val now = event.timestamp
+                            val stock = stocksMap[symbol]
+
+                            if (symbol.isNotBlank() && !newPrice.isNaN() && stock != null) {
+                                stocksMap[symbol] =
+                                    stock.copy(
+                                        previousPrice = stock.price,
+                                        price = newPrice,
+                                        lastChangedTimestamp = now,
+                                    )
+                                _stocks.update {
+                                    stocksMap.values.sortedByDescending {
+                                        it.price
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+
+    private fun initSendEvents(scope: CoroutineScope) {
             senderJob =
-                (externalScope ?: ownScope).launch {
+                scope.launch {
                     while (isActive) {
                         val now = System.currentTimeMillis()
 
@@ -103,9 +106,12 @@ class StocksPriceRepositoryImpl
                             stockPriceService.sendEvent(event = payload)
                         }
 
-                        val seconds = refreshInterval.value.coerceAtLeast(1)
+                        val seconds =
+                            refreshInterval.value.coerceAtLeast(
+                                minimumValue = MIN_PRICE_REFRESH_INTERVAL_SECONDS,
+                            )
 
-                        delay(timeMillis = seconds * PRICE_REFRESH_INTERVAL)
+                        delay(timeMillis = seconds * PRICE_REFRESH_INTERVAL_MILLIS)
                     }
                 }
         }

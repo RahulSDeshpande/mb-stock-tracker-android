@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
 import com.rahul.stocker.domain.model.StockModel
-import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL
+import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL_MILLIS
 import com.rahul.stocker.ext.theme.AppColors
 import kotlinx.coroutines.delay
 
@@ -34,7 +34,7 @@ fun StockRow(stock: StockModel) {
     LaunchedEffect(stock.lastChangedTimestamp) {
         if (stock.lastChangedTimestamp != null) {
             isUpdating = true
-            delay(PRICE_REFRESH_INTERVAL)
+            delay(PRICE_REFRESH_INTERVAL_MILLIS)
             isUpdating = false
         } else {
             isUpdating = false

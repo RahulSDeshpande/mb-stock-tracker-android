@@ -2,7 +2,8 @@ package com.rahul.stocker.ext
 
 import com.rahul.stocker.domain.model.StockModel
 
-const val PRICE_REFRESH_INTERVAL = 1000L
+const val PRICE_REFRESH_INTERVAL_MILLIS = 1000L
+const val MIN_PRICE_REFRESH_INTERVAL_SECONDS = 1
 
 val stockSymbols =
     listOf(
