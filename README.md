@@ -4,6 +4,15 @@
 - An Android app built with 100% Jetpack Compose and MVVM arch
 - It tracks stock symbols and streams price updates over a WebSocket wss, showing real-time changes
 
+### Features
+- ☑️ Stocks list
+- ☑️ Realtime update via websocket
+- ☑️ Settings page (bonus ✨)
+- ☑️ Dynamic refresh intervals  (bonus ✨)
+- ☑️ Light & dark themes
+- ☑️ Unit Testing
+- ☑️ UI Testing
+
 ---
 
 ## Quick start
