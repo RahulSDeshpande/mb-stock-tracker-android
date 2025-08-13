@@ -88,4 +88,45 @@ class StocksScreenTest {
                 ),
             ).assertIsOn()
     }
+
+    @Test
+    fun verifyRedDotWhenNotConnected() {
+        val stocks = emptyList<StockModel>()
+
+        // Connected = false → 🔴
+        composeRule.setContent {
+            MaterialTheme {
+                StocksScreen(
+                    viewState =
+                        ViewState(
+                            isConnected = false,
+                            isUpdating = false,
+                            stocks = stocks,
+                        ),
+                )
+            }
+        }
+        composeRule.onNodeWithText("🔴").assertIsDisplayed()
+    }
+
+    @Test
+    fun verifyGreenDotWhenConnected() {
+        val stocks = emptyList<StockModel>()
+
+        // Connected = true → 🟢
+        composeRule.setContent {
+            MaterialTheme {
+                StocksScreen(
+                    viewState =
+                        ViewState(
+                            isConnected = true,
+                            isUpdating = false,
+                            stocks = stocks,
+                        ),
+                )
+            }
+        }
+
+        composeRule.onNodeWithText("🟢").assertIsDisplayed()
+    }
 }
