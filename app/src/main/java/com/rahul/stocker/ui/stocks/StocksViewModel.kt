@@ -43,7 +43,7 @@ class StocksViewModel
 
                 ViewState(
                     isConnected = connected,
-                    isRunning = running,
+                    isUpdating = running,
                     stocks = stocks,
                     refreshInterval = interval,
                     appTheme = theme,

@@ -6,7 +6,7 @@ import com.rahul.stocker.ext.EnumBottomTab
 
 data class ViewState(
     val isConnected: Boolean = false,
-    val isRunning: Boolean = false,
+    val isUpdating: Boolean = false,
     val stocks: List<StockModel> = emptyList(),
     val refreshInterval: Int = 1,
     val appTheme: EnumAppTheme = EnumAppTheme.LIGHT,

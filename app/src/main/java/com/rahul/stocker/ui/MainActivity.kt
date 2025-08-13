@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
                                 label = {
                                     Text(
                                         text = getString(R.string.tab_stocks),
-                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
                                     )
                                 },
                                 icon = {
@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
                                 label = {
                                     Text(
                                         text = getString(R.string.tab_settings),
-                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Medium),
+                                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal),
                                     )
                                 },
                                 icon = {
