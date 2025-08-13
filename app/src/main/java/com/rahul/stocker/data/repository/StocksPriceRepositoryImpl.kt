@@ -7,6 +7,7 @@ import com.rahul.stocker.domain.repository.StocksRepository
 import com.rahul.stocker.ext.MIN_PRICE_REFRESH_INTERVAL_SECONDS
 import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL_MILLIS
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -89,7 +90,7 @@ class StocksPriceRepositoryImpl
 
         private fun initSendEvents(scope: CoroutineScope) {
             senderJob =
-                scope.launch {
+                scope.launch(Dispatchers.Default) {
                     while (isActive) {
                         val now = System.currentTimeMillis()
 
