@@ -74,6 +74,14 @@ class MainActivity : ComponentActivity() {
                                         contentDescription = "Stocks",
                                     )
                                 },
+                                // colors =
+                                //     NavigationBarItemDefaults.colors(
+                                //         selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                //         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                //         selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                //         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                //         indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+                                //     ),
                             )
                             NavigationBarItem(
                                 selected = viewState.selectedTab == EnumBottomTab.SETTINGS,
@@ -90,6 +98,14 @@ class MainActivity : ComponentActivity() {
                                         contentDescription = "Settings",
                                     )
                                 },
+                                // colors =
+                                //     NavigationBarItemDefaults.colors(
+                                //         selectedIconColor = MaterialTheme.colorScheme.onSurface,
+                                //         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                //         selectedTextColor = MaterialTheme.colorScheme.onSurface,
+                                //         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                                //         indicatorColor = MaterialTheme.colorScheme.secondaryContainer,
+                                //     ),
                             )
                         }
                     },
