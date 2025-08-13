@@ -17,6 +17,7 @@ private fun PreviewStockRowUp() {
     MaterialTheme {
         StockRow(
             stock = mockedStocks[2],
+            isUpdating = true,
         )
     }
 }
@@ -30,6 +31,7 @@ private fun PreviewStockRowDown() {
     MaterialTheme {
         StockRow(
             stock = mockedStocks[1],
+            isUpdating = true,
         )
     }
 }

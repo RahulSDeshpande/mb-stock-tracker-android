@@ -11,11 +11,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,23 +19,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rahul.stocker.R
 import com.rahul.stocker.domain.model.StockModel
-import com.rahul.stocker.ext.PRICE_REFRESH_INTERVAL_MILLIS
 import com.rahul.stocker.ext.theme.AppColors
-import kotlinx.coroutines.delay
 
 @Composable
-fun StockRow(stock: StockModel) {
-    var isUpdating by remember(stock.lastChangedTimestamp) { mutableStateOf(true) }
+fun StockRow(
+    stock: StockModel,
+    isUpdating: Boolean,
+) {
+    // var isUpdating by remember(stock.lastChangedTimestamp) { mutableStateOf(true) }
 
-    LaunchedEffect(stock.lastChangedTimestamp) {
-        if (stock.lastChangedTimestamp != null) {
-            isUpdating = true
-            delay(PRICE_REFRESH_INTERVAL_MILLIS)
-            isUpdating = false
-        } else {
-            isUpdating = false
-        }
-    }
+    // LaunchedEffect(stock.lastChangedTimestamp) {
+    //     if (stock.lastChangedTimestamp != null) {
+    //         isUpdating = true
+    //         delay(PRICE_REFRESH_INTERVAL_MILLIS)
+    //         isUpdating = false
+    //     } else {
+    //         isUpdating = false
+    //     }
+    // }
 
     val priceChangeBgColor =
         when {
@@ -81,8 +78,9 @@ fun StockRow(stock: StockModel) {
             }
         Text(
             text =
-                String.format(
-                    stringResource(id = R.string.price_format),
+                stringResource(
+                    id = R.string.price_format,
+                    stringResource(id = R.string.price_currency),
                     stock.price,
                 ),
             modifier = Modifier.widthIn(min = 40.dp),

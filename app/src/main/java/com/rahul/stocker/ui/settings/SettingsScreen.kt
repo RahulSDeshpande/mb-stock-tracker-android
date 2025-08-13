@@ -75,7 +75,7 @@ fun SettingsScreen(
             )
 
             HorizontalDivider(
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = Modifier.padding(vertical = 16.dp),
                 thickness = 0.5.dp,
             )
 
@@ -85,9 +85,7 @@ fun SettingsScreen(
             )
 
             Row(
-                modifier =
-                    Modifier
-                        .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Row(
@@ -123,7 +121,7 @@ fun SettingsScreen(
             }
 
             HorizontalDivider(
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = Modifier.padding(vertical = 16.dp),
                 thickness = 0.5.dp,
             )
 

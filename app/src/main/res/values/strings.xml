@@ -19,7 +19,8 @@
     <string name="price_up">↑</string>
     <string name="price_down">↓</string>
     <string name="price_still">-</string>
-    <string name="price_format">AED%.2f</string>
+    <string name="price_currency">$</string>
+    <string name="price_format">%s%.2f</string>
 
     <!-- SETTINGS -->
     <string name="settings_title">Settings</string>

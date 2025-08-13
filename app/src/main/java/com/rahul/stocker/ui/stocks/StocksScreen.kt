@@ -90,7 +90,10 @@ fun StocksScreen(
                     .padding(padding),
         ) {
             items(items = viewState.stocks) { stock ->
-                StockRow(stock = stock)
+                StockRow(
+                    stock = stock,
+                    isUpdating = true,
+                )
                 HorizontalDivider(thickness = 0.5.dp)
             }
         }

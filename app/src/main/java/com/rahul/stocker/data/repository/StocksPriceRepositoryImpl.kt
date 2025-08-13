@@ -87,7 +87,7 @@ class StocksPriceRepositoryImpl
             }
         }
 
-    private fun initSendEvents(scope: CoroutineScope) {
+        private fun initSendEvents(scope: CoroutineScope) {
             senderJob =
                 scope.launch {
                     while (isActive) {
@@ -119,6 +119,22 @@ class StocksPriceRepositoryImpl
         override fun stop() {
             senderJob?.cancel()
             senderJob = null
+
+            collectJob?.cancel()
+            collectJob = null
+
+            // Reset change indicators so UI highlights clear when feed is stopped
+            stocksMap.keys.forEach { key ->
+                val stock = stocksMap[key] ?: return@forEach
+                val updatedStock =
+                    stock.copy(
+                        previousPrice = stock.price,
+                        lastChangedTimestamp = null,
+                    )
+                stocksMap[key] = updatedStock
+            }
+            _stocks.update { stocksMap.values.sortedByDescending { it.price } }
+
             stockPriceService.disconnect()
         }
 
