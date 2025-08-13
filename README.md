@@ -118,3 +118,5 @@ More screenshots:
 Demo video:
 
 - [`Stocker - demo video.webm`](docs/media/Stocker%20-%20demo%20video.webm)
+
+- [Uploading Stocker - demo video.webm…]()
