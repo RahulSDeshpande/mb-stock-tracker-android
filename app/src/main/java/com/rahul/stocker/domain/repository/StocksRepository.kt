@@ -1,13 +1,14 @@
 package com.rahul.stocker.domain.repository
 
 import com.rahul.stocker.domain.model.StockModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 
 interface StocksRepository {
     val stocks: StateFlow<List<StockModel>>
     val isConnected: StateFlow<Boolean>
 
-    fun start()
+    fun start(scope: CoroutineScope)
 
     fun stop()
 

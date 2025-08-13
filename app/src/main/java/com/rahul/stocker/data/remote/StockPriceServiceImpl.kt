@@ -5,8 +5,6 @@ import com.google.gson.JsonSyntaxException
 import com.rahul.stocker.BuildConfig
 import com.rahul.stocker.domain.model.StockPriceEventModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -25,7 +23,12 @@ class StockPriceServiceImpl(
     private val wsUrl: String = BuildConfig.WS_URL,
 ) : StockPriceService {
     // TODO | MIGHT NEED SCOPE FROM THE ViewModel
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    // private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    // TODO | REMOVE IF NOT NECESSARY
+    // private val ownScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+    private var externalScope: CoroutineScope? = null
 
     private val httpClient =
         OkHttpClient
@@ -48,7 +51,11 @@ class StockPriceServiceImpl(
         )
     override val receivingEvent: SharedFlow<StockPriceEventModel> = _receivingEvent
 
-    override fun connect() {
+    override fun connect(scope: CoroutineScope?) {
+        if (scope != null) {
+            externalScope = scope
+        }
+
         if (webSocket != null) {
             return
         }
@@ -76,7 +83,9 @@ class StockPriceServiceImpl(
                             try {
                                 val model = gson.fromJson(text, StockPriceEventModel::class.java)
                                 if (model.symbol.isNotBlank() && !model.price.isNaN()) {
-                                    coroutineScope.launch { _receivingEvent.emit(value = model) }
+                                    externalScope?.launch {
+                                        _receivingEvent.emit(model)
+                                    }
                                 }
                             } catch (jse: JsonSyntaxException) {
                                 print(jse.message)
@@ -119,6 +128,7 @@ class StockPriceServiceImpl(
 
     override fun cancel() {
         disconnect()
-        coroutineScope.cancel()
+        externalScope?.cancel()
+        // ownScope.cancel()
     }
 }

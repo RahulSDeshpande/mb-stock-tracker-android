@@ -27,7 +27,8 @@ class StocksPriceRepositoryImpl
         private val symbols: List<String>,
         private val stockPriceService: StockPriceService,
     ) : StocksRepository {
-        private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        private val ownScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        private var externalScope: CoroutineScope? = null
 
         private val stocksMap: MutableMap<String, StockModel> =
             symbols
@@ -46,11 +47,13 @@ class StocksPriceRepositoryImpl
         override val isConnected: StateFlow<Boolean> = stockPriceService.isConnected
 
         private var senderJob: Job? = null
+        private var collectJob: Job? = null
 
         private val refreshInterval = MutableStateFlow(1)
 
         init {
-            coroutineScope.launch {
+            // Default to internal scope until a ViewModel scope is provided via start()
+            ownScope.launch {
                 stockPriceService.receivingEvent.collect { event ->
                     val symbol = event.symbol
                     val newPrice = event.price
@@ -74,21 +77,22 @@ class StocksPriceRepositoryImpl
             }
         }
 
-        override fun start() {
-            stockPriceService.connect()
+        override fun start(scope: CoroutineScope) {
+            externalScope = scope
+            stockPriceService.connect(scope = scope)
 
             if (senderJob?.isActive == true) {
                 return
             }
 
             senderJob =
-                coroutineScope.launch {
+                (externalScope ?: ownScope).launch {
                     while (isActive) {
                         val now = System.currentTimeMillis()
 
                         symbols.forEach { symbol ->
                             val current = stocksMap[symbol] ?: return@forEach
-                            val nextPrice = nextPriceFrom(current.price)
+                            val nextPrice = nextPriceFrom(current = current.price)
                             val payload =
                                 StockPriceEventModel(
                                     symbol = symbol,
@@ -101,7 +105,7 @@ class StocksPriceRepositoryImpl
 
                         val seconds = refreshInterval.value.coerceAtLeast(1)
 
-                        delay(seconds * PRICE_REFRESH_INTERVAL)
+                        delay(timeMillis = seconds * PRICE_REFRESH_INTERVAL)
                     }
                 }
         }

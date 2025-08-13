@@ -66,7 +66,7 @@ class StocksViewModel
         }
 
         private fun start() {
-            repository.start()
+            repository.start(viewModelScope)
         }
 
         private fun stop() {
