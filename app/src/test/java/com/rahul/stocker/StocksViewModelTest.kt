@@ -46,6 +46,7 @@ class StocksViewModelTest {
             vm.setAppTheme(EnumAppTheme.DARK)
             vm.setRefreshInterval(1)
             vm.selectTab(EnumBottomTab.SETTINGS)
+            vm.switch()
 
             advanceUntilIdle()
 
