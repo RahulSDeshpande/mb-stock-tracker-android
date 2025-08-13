@@ -84,7 +84,7 @@ The app follows a straightforward, testable MVVM - with a light weihgt domain la
 
 ---
 
-## Notable implementation details
+## Implementation
 
 - 100% Compose UI
 - Material 3 for ui theme
