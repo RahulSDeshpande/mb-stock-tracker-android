@@ -1,6 +1,8 @@
 ## Stocker App
-- An Android app built with 100% Jetpack Compose and MVVM
-- It tracks a set of stock symbols and streams price updates over a WebSocket wss, showing live changes
+<img width="160" height="160" alt="ic_launcher-playstore" src="https://github.com/user-attachments/assets/69826b12-f85d-4fb7-a245-926fb41b4d0f" />
+
+- An Android app built with 100% Jetpack Compose and MVVM arch
+- It tracks stock symbols and streams price updates over a WebSocket wss, showing real-time changes
 
 ---
 
@@ -37,19 +39,19 @@ GitHub Actions workflow is included at `.github/workflows/android-ci.yml` and ru
 
 ---
 
-## Configuration
+## Tech Stack
 
 ### WebSocket URL
 - `WS_URL` environment variable: `wss://ws.postman-echo.com/raw`
 
 ---
 
-## Architecture (MVVM)
+## Architecture (MVVM lite)
 
-The app follows a straightforward, testable MVVM split with a light domain layer.
+The app follows a straightforward, testable MVVM - with a light weihgt domain layer.
 
 ### UI layer
-- `Compose` screens and components
+- `Compose` screenss and components
 - Previews for all the compose components & screens
 - `ViewModel` exposes immutable `ViewState` via `StateFlow` and thin event methods
 - No business logic in composables ofcourse!!
@@ -92,8 +94,8 @@ The app follows a straightforward, testable MVVM split with a light domain layer
 - Symbols: A fixed list is injected (DI) for simplicity.
 - Price generation: The remote endpoint echoes what we send; we locally generate prices every N seconds so the UI updates reliably.
 - Sorting: Stock list is sorted by current price (descending) on each update.
-- Row highlight: The background remains tinted until the next update arrives; when the feed stops, highlights reset.
-- Interval: Minimum 1 second. Defaults to 1 second in UI state; persisted only in-process for the demo.
+- Row highlight: The bg remains tinted until the next update arrives; when the feed stops, highlights reset.
+- Interval: Minimum 1 sec. Defaults to 1 second in UI state; persisted only in-process for the demo.
 - Tests: Unit tests focus on logic and state progression; UI tests validate key elements and interactions.
 
 ---
