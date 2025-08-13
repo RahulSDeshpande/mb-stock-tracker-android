@@ -9,9 +9,11 @@ import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.rahul.stocker.domain.model.StockModel
 import com.rahul.stocker.ui.stocks.StocksScreen
 import com.rahul.stocker.ui.stocks.ViewState
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
@@ -106,7 +108,10 @@ class StocksScreenTest {
                 )
             }
         }
-        composeRule.onNodeWithText("🔴").assertIsDisplayed()
+
+        composeRule
+            .onNodeWithText("🔴")
+            .assertIsDisplayed()
     }
 
     @Test
@@ -127,6 +132,82 @@ class StocksScreenTest {
             }
         }
 
-        composeRule.onNodeWithText("🟢").assertIsDisplayed()
+        composeRule
+            .onNodeWithText("🟢")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun verifySwitchTriggersCallbackOnClick() {
+        var isUpdating = false
+
+        composeRule.setContent {
+            MaterialTheme {
+                StocksScreen(
+                    viewState =
+                        ViewState(
+                            isConnected = false,
+                            isUpdating = false,
+                            stocks = emptyList(),
+                        ),
+                    onSwitched = { isUpdating = true },
+                )
+            }
+        }
+
+        composeRule
+            .onNode(
+                SemanticsMatcher.expectValue(
+                    key = SemanticsProperties.Role,
+                    expectedValue = Role.Switch,
+                ),
+            ).performClick()
+
+        assertTrue(isUpdating)
+    }
+
+    @Test
+    fun verifyArrowUpdatesOnPriceChange() {
+        val now = System.currentTimeMillis()
+
+        val stocks =
+            listOf(
+                StockModel(
+                    "UP",
+                    price = 10.0,
+                    previousPrice = 9.0,
+                    lastChangedTimestamp = now,
+                ),
+                StockModel(
+                    "DOWN",
+                    price = 8.0,
+                    previousPrice = 9.0,
+                    lastChangedTimestamp = now,
+                ),
+                StockModel(
+                    "FLAT",
+                    price = 9.0,
+                    previousPrice = 9.0,
+                    lastChangedTimestamp = now,
+                ),
+            )
+        composeRule.setContent {
+            MaterialTheme {
+                StocksScreen(
+                    viewState =
+                        ViewState(
+                            isConnected = true,
+                            isUpdating = false,
+                            stocks = stocks,
+                        ),
+                )
+            }
+        }
+
+        composeRule.apply {
+            onNodeWithText("↑").assertIsDisplayed()
+            onNodeWithText("↓").assertIsDisplayed()
+            onNodeWithText("-").assertIsDisplayed()
+        }
     }
 }
