@@ -104,7 +104,9 @@ class StocksPriceRepositoryImpl
                                     timestamp = now,
                                 )
 
-                            stockPriceService.sendEvent(event = payload)
+                            if (Random.nextInt(100) < 10) {
+                                stockPriceService.sendEvent(event = payload)
+                            }
                         }
 
                         val seconds =
