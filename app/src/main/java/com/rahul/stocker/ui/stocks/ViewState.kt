@@ -1,9 +1,11 @@
 package com.rahul.stocker.ui.stocks
 
+import androidx.compose.runtime.Immutable
 import com.rahul.stocker.domain.model.StockModel
 import com.rahul.stocker.ext.EnumAppTheme
 import com.rahul.stocker.ext.EnumBottomTab
 
+@Immutable
 data class ViewState(
     val isConnected: Boolean = false,
     val isUpdating: Boolean = false,
