@@ -17,7 +17,7 @@ private fun PreviewStockRowUp() {
     MaterialTheme {
         StockRow(
             stock = mockedStocks[2],
-            isUpdating = true,
+            // isUpdating = true,
         )
     }
 }
@@ -31,7 +31,7 @@ private fun PreviewStockRowDown() {
     MaterialTheme {
         StockRow(
             stock = mockedStocks[1],
-            isUpdating = true,
+            // isUpdating = true,
         )
     }
 }
@@ -47,7 +47,7 @@ private fun PreviewStocksScreenConnected() {
             viewState =
                 ViewState(
                     isConnected = true,
-                    isUpdating = true,
+                    // isUpdating = true,
                     stocks = mockedStocks.take(6),
                 ),
         )
@@ -65,7 +65,7 @@ private fun PreviewStockScreenDisconnected() {
             viewState =
                 ViewState(
                     isConnected = false,
-                    isUpdating = false,
+                    // isUpdating = false,
                     stocks = mockedStocks.asReversed().take(3),
                 ),
         )
