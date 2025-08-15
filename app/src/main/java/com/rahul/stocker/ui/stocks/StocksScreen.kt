@@ -89,10 +89,13 @@ fun StocksScreen(
                     .fillMaxSize()
                     .padding(padding),
         ) {
-            items(items = viewState.stocks) { stock ->
+            items(
+                items = viewState.stocks,
+                key = { stock -> stock.symbol },
+            ) { stock ->
                 StockRow(
                     stock = stock,
-                    isUpdating = true,
+                    // isUpdating = true,
                 )
                 HorizontalDivider(thickness = 0.5.dp)
             }
